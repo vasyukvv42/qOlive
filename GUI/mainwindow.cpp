@@ -19,3 +19,10 @@ void MainWindow::on_actionAbout_Qt_triggered()
 {
     QMessageBox::aboutQt(nullptr);
 }
+
+void MainWindow::on_parseButton_clicked()
+{
+    auto text = ui->textEdit->toPlainText().toStdString();
+    auto doc = XML::Parser::from_string(text);
+    ui->textEdit->setPlainText(QString::fromStdString(doc->serialize(4)));
+}

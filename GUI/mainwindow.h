@@ -23,6 +23,8 @@ public:
 private slots:
     void on_actionAbout_Qt_triggered();
 
+    void on_parseButton_clicked();
+
 private:
     Ui::MainWindow *ui;
     BasicXMLSyntaxHighlighter *xmlHighlighter;
