@@ -13,10 +13,6 @@ int main(int argc, char *argv[])
         ele->set_attribute("a", "b");
     }
 
-    for (auto&& node : *doc) {
-        node->append_child(new XML::DOM::Text("AAAA"));
-    }
-
     std::cout << doc->serialize(4);
     MainWindow w;
     w.show();

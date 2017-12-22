@@ -21,9 +21,12 @@ public:
     static DOM::Document *from_string(const std::string &str);
 private:
     DOM::Element *parse_element();
+    DOM::Comment *parse_comment();
 
     void advance();
     void advance(Token::Type expected_type);
+
+    bool eof();
 
     std::unique_ptr<Lexer> lexer;
     Token curr_token;

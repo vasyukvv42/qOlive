@@ -19,7 +19,9 @@ Node::Node(Type type, const std::string &name, const std::string &value)
 
 void Node::append_child(Node *new_child)
 {
-    if (new_child) {
+    if (new_child and not is_ancestor(new_child)) {
+        if (new_child->type == Type::INVALID_NODE or new_child->type == Type::DOCUMENT_NODE)
+            throw DOMError("Cannot append nodes of this type");
         new_child->parent_node = this;
         if (has_child_nodes()) {
             new_child->previous_sibling = child_nodes.back().get();
@@ -34,6 +36,19 @@ void Node::append_child(Node *new_child)
 bool Node::has_child_nodes()
 {
     return !child_nodes.empty();
+}
+
+bool Node::is_ancestor(Node *other)
+{
+    if (other == nullptr)
+        return false;
+
+    auto curr = other->parent_node;
+    while (curr)
+        if (curr == this)
+            return true;
+
+    return false;
 }
 
 std::list<Element *> Node::get_elements_by_tag_name(const std::string &tag_name)
@@ -96,9 +111,47 @@ void Node::remove_child(Node *old_child)
 
 Element::Element(const std::string &tag_name) : Node(Type::ELEMENT_NODE, tag_name, "") {}
 Text::Text(const std::string &text) : Node(Type::TEXT_NODE, "", text) {}
+
+void Text::append_child(Node *new_child)
+{
+    throw DOMError("Text node cannot have child nodes");
+}
+
 CDATASection::CDATASection(const std::string &text) : Node(Type::CDATA_SECTION_NODE, "", text) {}
+
+void CDATASection::append_child(Node *new_child)
+{
+    throw DOMError("CDATASection node cannot have child nodes");
+}
+
 Comment::Comment(const std::string &text) : Node(Type::COMMENT_NODE, "", text) {}
+
+void Comment::append_child(Node *new_child)
+{
+    throw DOMError("Comment node cannot have child nodes");
+}
+
 Document::Document() : Node(Type::DOCUMENT_NODE), root_element(nullptr) {}
+
+void Document::append_child(Node *new_child)
+{
+    if (new_child == nullptr)
+        throw DOMError("Cannot append a null node");
+
+    if (new_child->type != Type::ELEMENT_NODE and new_child->type != Type::COMMENT_NODE)
+        throw DOMError("Document node cannot have child of this type");
+
+    if (new_child->type == Type::ELEMENT_NODE) {
+        int root_count = 0;
+        for (auto&& node : child_nodes)
+            if (node->type == Type::ELEMENT_NODE)
+                root_count++;
+        if (root_count != 0)
+            throw DOMError("Document node can't have more than one root element");
+    }
+
+    Node::append_child(new_child);
+}
 
 void Element::set_attribute(const std::string &name, const std::string &value)
 {
@@ -224,7 +277,10 @@ std::string Document::serialize(size_t tab_size)
     std::string out;
     if (!xml_prolog.empty())
         out += xml_prolog + "\n";
-    out += root_element->serialize(tab_size, 0);
+    if (!doctype.empty())
+        out += doctype + "\n";
+    for (auto&& child : child_nodes)
+        out += child->serialize(tab_size, 0);
     return out;
 }
 

@@ -22,6 +22,11 @@ void Parser::advance(Token::Type expected_type)
         throw SyntaxError("Expected type " + Token::type_name(expected_type) + ", got " + peek_token.name());
 }
 
+bool Parser::eof()
+{
+    return curr_token.type == Token::Type::END_OF_FILE;
+}
+
 DOM::Document* Parser::parse(const std::string &input)
 {
     lexer = std::make_unique<Lexer>(input);
@@ -35,9 +40,29 @@ DOM::Document* Parser::parse(const std::string &input)
         advance();
     }
 
-    auto root_element = parse_element();
-    document->append_child(root_element);
-    document->root_element = root_element;
+    int root_count = 0;
+
+    while (not eof()) {
+        if (curr_token.type == Token::Type::TAG_BEGIN) {
+            auto root_element = parse_element();
+            document->append_child(root_element);
+            document->root_element = root_element;
+            advance();
+            root_count++;
+            if (root_count > 1)
+                throw DOMError("Document cannot have more than one root element");
+        } else if (curr_token.type == Token::Type::DOCTYPE) {
+            if (not document->doctype.empty())
+                throw DOMError("Document cannot have more than one DOCTYPE");
+            document->doctype = curr_token.value;
+            advance();
+        } else if (curr_token.type == Token::Type::COMMENT_BEGIN) {
+            document->append_child(parse_comment());
+            advance();
+        } else {
+            throw SyntaxError("Unexpected token " + curr_token.name() + " at top level");
+        }
+    }
 
     return document;
 }
@@ -49,7 +74,7 @@ DOM::Element *Parser::parse_element()
 
     auto elem = new DOM::Element(curr_token.value.substr(1));
 
-    while (curr_token.type != Token::Type::END_OF_FILE) {
+    while (not eof()) {
         if (peek_token.type == Token::Type::TAG_END) {
             advance();
             break;
@@ -71,7 +96,7 @@ DOM::Element *Parser::parse_element()
         elem->set_attribute(attr_name, attr_value);
     }
 
-    while (curr_token.type != Token::Type::END_OF_FILE) {
+    while (not eof()) {
         advance();
 
         switch (curr_token.type) {
@@ -95,15 +120,26 @@ DOM::Element *Parser::parse_element()
                 break;
             }
             case Token::Type::COMMENT_BEGIN: {
-                advance(Token::Type::COMMENT);
-                elem->append_child(new DOM::Comment(curr_token.value));
-                advance(Token::Type::COMMENT_END);
+                elem->append_child(parse_comment());
                 break;
             }
             default:
                 throw SyntaxError("Unexpected token: " + curr_token.name());
         }
     }
+    return nullptr;
+}
+
+DOM::Comment *Parser::parse_comment()
+{
+    auto comment = new DOM::Comment();
+    while (peek_token.type != Token::Type::COMMENT_END and
+           peek_token.type != Token::Type::END_OF_FILE) {
+        advance(Token::Type::COMMENT);
+        comment->value += curr_token.value;
+    }
+    advance(Token::Type::COMMENT_END);
+    return comment;
 }
 
 DOM::Document *Parser::from_string(const std::string &str)

@@ -42,6 +42,8 @@ std::string Token::type_name(Type type)
             return "CDATA_END";
         case Type::PI:
             return "PROCESSING_INSTRUCTION";
+        case Type::DOCTYPE:
+            return "DOCTYPE";
         case Type::INVALID:
             return "INVALID";
         case Type::END_OF_FILE:

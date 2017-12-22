@@ -16,8 +16,6 @@
 namespace XML::DOM
 {
 
-// TODO: get_elements_by_tag_name
-
 class Node
 {
 public:
@@ -34,10 +32,11 @@ public:
     };
 
     explicit Node(Type type = Type::INVALID_NODE, const std::string &name = "", const std::string &value = "");
-    void append_child(Node *new_child);
+    virtual void append_child(Node *new_child);
     void insert_before(Node *new_child, Node *ref_child);
     void remove_child(Node *old_child);
     bool has_child_nodes();
+    bool is_ancestor(Node *other);
     std::list<class Element*> get_elements_by_tag_name(const std::string &tag_name);
 
     Type type;
@@ -105,7 +104,9 @@ protected:
 class Text : public Node
 {
 public:
-    explicit Text(const std::string &text);
+    explicit Text(const std::string &text = "");
+
+    void append_child(Node *new_child) override;
 
     std::string serialize(size_t tab_size, size_t level) override;
 };
@@ -113,7 +114,9 @@ public:
 class CDATASection : public Node
 {
 public:
-    explicit CDATASection(const std::string &text);
+    explicit CDATASection(const std::string &text = "");
+
+    void append_child(Node *new_child) override;
 
     std::string serialize(size_t tab_size, size_t level) override;
 };
@@ -121,7 +124,9 @@ public:
 class Comment : public Node
 {
 public:
-    explicit Comment(const std::string &text);
+    explicit Comment(const std::string &text = "");
+
+    void append_child(Node *new_child) override;
 
     std::string serialize(size_t tab_size, size_t level) override;
 };
@@ -132,7 +137,10 @@ public:
     explicit Document();
 
     std::string xml_prolog;
+    std::string doctype;
     Element* root_element;
+
+    void append_child(Node *new_child) override;
 
     std::string serialize(size_t tab_size = 0);
 };

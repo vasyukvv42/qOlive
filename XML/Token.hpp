@@ -32,6 +32,7 @@ struct Token
         CDATA,              // any text
         CDATA_END,          // ]]>
         PI,                 // <? ... ?>
+        DOCTYPE,            // <!DOCTYPE ... >
         INVALID,
         END_OF_FILE
     };

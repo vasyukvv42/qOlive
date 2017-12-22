@@ -96,7 +96,7 @@ Token Lexer::content_mode()
                     mode = Mode::CDATA;
                 } else {
                     token.value = "<" + tag;
-                    token.type = Token::Type::INVALID;
+                    token.type = Token::Type::DOCTYPE;
                 }
 
                 return token;
@@ -236,9 +236,12 @@ Token Lexer::comment_mode()
                 token.value = "-->";
                 token.type = Token::Type::COMMENT_END;
                 mode = Mode::CONTENT;
-            } else {
+            } else if (ch == '-') {
                 token.value = "--";
                 token.type = Token::Type::INVALID;
+            } else {
+                token.value = '-' + read_until('-');
+                token.type = Token::Type::COMMENT;
             }
             break;
         }
