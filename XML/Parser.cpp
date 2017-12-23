@@ -27,37 +27,31 @@ bool Parser::eof()
     return curr_token.type == Token::Type::END_OF_FILE;
 }
 
-DOM::Document* Parser::parse(const std::string &input)
+DOM::Document Parser::parse(const std::string &input)
 {
     lexer = std::make_unique<Lexer>(input);
     advance();
     advance();
 
-    auto document = new DOM::Document();
+    DOM::Document document;
 
     if (curr_token.type == Token::Type::PI) {
-        document->xml_prolog = curr_token.value;
+        document.set_xml_prolog(curr_token.value);
         advance();
     }
-
-    int root_count = 0;
 
     while (not eof()) {
         if (curr_token.type == Token::Type::TAG_BEGIN) {
             auto root_element = parse_element();
-            document->append_child(root_element);
-            document->root_element = root_element;
+            document.append_child(root_element);
             advance();
-            root_count++;
-            if (root_count > 1)
-                throw DOMError("Document cannot have more than one root element");
         } else if (curr_token.type == Token::Type::DOCTYPE) {
-            if (not document->doctype.empty())
-                throw DOMError("Document cannot have more than one DOCTYPE");
-            document->doctype = curr_token.value;
+            if (not document.doctype().empty())
+                throw DOMError("Document node cannot have more than one Doctype");
+            document.set_doctype(curr_token.value);
             advance();
         } else if (curr_token.type == Token::Type::COMMENT_BEGIN) {
-            document->append_child(parse_comment());
+            document.append_child(parse_comment());
             advance();
         } else {
             throw SyntaxError("Unexpected token " + curr_token.name() + " at top level");
@@ -86,7 +80,7 @@ DOM::Element *Parser::parse_element()
         advance(Token::Type::ATTRIBUTE_NAME);
         auto attr_name = curr_token.value;
         if (elem->has_attribute(attr_name))
-            throw SyntaxError("Element " + elem->name + " has repeated attribute " + attr_name);
+            throw SyntaxError("Element " + elem->name() + " has repeated attribute " + attr_name);
 
         advance(Token::Type::EQUAL_SIGN);
 
@@ -101,7 +95,7 @@ DOM::Element *Parser::parse_element()
 
         switch (curr_token.type) {
             case Token::Type::TAG_CLOSE: {
-                if (curr_token.value.substr(2, curr_token.value.size() - 3) != elem->name)
+                if (curr_token.value.substr(2, curr_token.value.size() - 3) != elem->name())
                     throw SyntaxError("Unexpected tag close");
                 return elem;
             }
@@ -132,17 +126,17 @@ DOM::Element *Parser::parse_element()
 
 DOM::Comment *Parser::parse_comment()
 {
-    auto comment = new DOM::Comment();
+    std::string comment;
     while (peek_token.type != Token::Type::COMMENT_END and
            peek_token.type != Token::Type::END_OF_FILE) {
         advance(Token::Type::COMMENT);
-        comment->value += curr_token.value;
+        comment += curr_token.value;
     }
     advance(Token::Type::COMMENT_END);
-    return comment;
+    return new DOM::Comment(comment);
 }
 
-DOM::Document *Parser::from_string(const std::string &str)
+DOM::Document Parser::from_string(const std::string &str)
 {
     XML::Parser p;
     return p.parse(str);
@@ -150,12 +144,12 @@ DOM::Document *Parser::from_string(const std::string &str)
 
 } // namespace XML
 
-XML::DOM::Document* operator "" _xml(const char* str)
+XML::DOM::Document operator "" _xml(const char* str)
 {
     return XML::Parser::from_string(str);
 }
 
-XML::DOM::Document* operator "" _xml(const char* str, size_t size)
+XML::DOM::Document operator "" _xml(const char* str, size_t size)
 {
     return XML::Parser::from_string(str);
 }

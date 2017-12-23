@@ -4,6 +4,7 @@
 
 #include <iostream>
 #include "Lexer.hpp"
+#include "Errors.hpp"
 
 namespace XML
 {
@@ -112,6 +113,10 @@ Token Lexer::content_mode()
         }
         default: {
             token.value = read_until('<');
+            for (auto &&ch : token.value) {
+                if (ch == '>')
+                    throw SyntaxError("Unexpected symbol >");
+            }
             token.type = Token::Type::CONTENT;
             break;
         }

@@ -25,9 +25,12 @@ private slots:
 
     void on_parseButton_clicked();
 
+    void on_serializeButton_clicked();
+
 private:
     Ui::MainWindow *ui;
     BasicXMLSyntaxHighlighter *xmlHighlighter;
+    XML::TreeModel *xmlTreeModel;
 };
 
 #endif // MAINWINDOW_H

@@ -24,5 +24,11 @@ void MainWindow::on_parseButton_clicked()
 {
     auto text = ui->textEdit->toPlainText().toStdString();
     auto doc = XML::Parser::from_string(text);
-    ui->textEdit->setPlainText(QString::fromStdString(doc->serialize(4)));
+    xmlTreeModel = new XML::TreeModel(doc);
+    ui->treeView->setModel(xmlTreeModel);
+}
+
+void MainWindow::on_serializeButton_clicked()
+{
+    ui->textEdit->setPlainText(QString::fromStdString(xmlTreeModel->getDocument()->serialize(4)));
 }

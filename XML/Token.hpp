@@ -36,11 +36,26 @@ struct Token
         INVALID,
         END_OF_FILE
     };
-    
+
+    /// Token constructor
+    /// \param type Type of token
+    /// \param value Value of token
     explicit Token(Type type = Type::END_OF_FILE,
                    const std::string& value = "");
+
+    /// Returns string representation of token type
+    /// \param type Token type
+    /// \return String representation
     static std::string type_name(Type type);
+
+    /// Returns string representation of this tokens type
+    /// \return String representation
     std::string name() const;
+
+    /// Stream output operator for tokens
+    /// \param os Output stream
+    /// \param token Token
+    /// \return Output stream
     friend std::ostream &operator<<(std::ostream &os, const Token &token);
 
     Type type;

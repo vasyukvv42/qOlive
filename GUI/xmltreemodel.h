@@ -48,6 +48,7 @@ public:
     bool removeRows(int row, int count, const QModelIndex &parent = QModelIndex()) override;
     bool removeColumns(int column, int count, const QModelIndex &parent = QModelIndex()) override;
 
+    DOM::Document* getDocument();
 private:
 
     std::unique_ptr<DOM::Document> document;
