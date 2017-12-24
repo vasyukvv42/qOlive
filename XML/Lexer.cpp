@@ -4,7 +4,7 @@
 
 #include <iostream>
 #include "Lexer.hpp"
-#include "Errors.hpp"
+
 
 namespace XML
 {
@@ -36,6 +36,21 @@ char Lexer::peek()
 bool Lexer::eof()
 {
     return ch == 0;
+}
+
+void Lexer::validate_name(const std::string &name)
+{
+    Lexer l(name);
+    l.advance();
+    auto &ch = l.ch;
+    if (not l.is_letter(ch) or l.is_digit(ch) or ch == '-' or ch == '.')
+        throw SyntaxError("Invalid tag name");
+    l.advance();
+    while (not l.eof() and (l.is_letter(ch) or l.is_digit(ch) or ch == ':'))
+        l.advance();
+
+    if (not l.eof())
+        throw SyntaxError("Invalid tag name");
 }
 
 void Lexer::consume_whitespace()

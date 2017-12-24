@@ -1,10 +1,21 @@
 #include "xmltreemodel.h"
+#include <iostream>
+
+#define TRY_EMIT try {
+#define CATCH_EMIT }catch(SyntaxError&e){emit errorOccurred("Syntax Error",e.what());}catch(DOMError&e){emit errorOccurred("DOM Error",e.what());}
 
 namespace XML {
 
-TreeModel::TreeModel(DOM::Document *data, QObject *parent)
-    : document(data), QAbstractItemModel(parent)
+TreeModel::TreeModel(DOM::Document &data, QObject *parent)
+    : document(std::make_unique<DOM::Document>(std::move(data))), QAbstractItemModel(parent)
 {
+}
+
+void TreeModel::setDocument(DOM::Document &data)
+{
+    beginResetModel();
+    document = std::make_unique<DOM::Document>(std::move(data));
+    endResetModel();
 }
 
 DOM::Node *TreeModel::getItem(const QModelIndex &index) const
@@ -63,7 +74,7 @@ QModelIndex TreeModel::parent(const QModelIndex &index) const
             return QModelIndex();
 
     auto childItem = getItem(index);
-    auto parentItem = childItem->parent_node;
+    auto parentItem = childItem->parent_node();
 
     if (parentItem == document.get())
         return QModelIndex();
@@ -75,7 +86,7 @@ int TreeModel::rowCount(const QModelIndex &parent) const
 {
     auto *parentItem = getItem(parent);
 
-    return parentItem->child_nodes.size();
+    return parentItem->child_nodes().size();
 }
 
 int TreeModel::columnCount(const QModelIndex &parent) const
@@ -95,7 +106,7 @@ QVariant TreeModel::data(const QModelIndex &index, int role) const
     auto col = index.column();
 
     if (col == 0)
-        return QVariant(QString::fromStdString(item->name));
+        return QVariant(QString::fromStdString(item->name()));
     else if (col == 1)
         return QVariant(QString::fromStdString(item->type_name()));
     else if (col == 2) {
@@ -112,20 +123,26 @@ bool TreeModel::setData(const QModelIndex &index, const QVariant &value, int rol
 
         auto item = getItem(index);
 
-        if (index.column() == 0)
-            item->name = value.toString().toStdString();
-        else if (index.column() == 2) {
-            if (item->type == XML::DOM::Node::Type::ELEMENT_NODE) {
-                beginRemoveRows(index, 0, item->child_nodes.size() - 1);
-                item->child_nodes.clear();
-                endRemoveRows();
-                item->append_child(new XML::DOM::Text(value.toString().toStdString()));
-            } else {
-                item->value = value.toString().toStdString();
-            }
-        }
 
-        emit dataChanged(index, index, QVector<int>() << role);
+            if (index.column() == 0) {
+                TRY_EMIT
+                item->set_name(value.toString().toStdString());
+                CATCH_EMIT
+            }
+            else if (index.column() == 2) {
+                if (item->type() == XML::DOM::Node::Type::ELEMENT_NODE) {
+                    TRY_EMIT
+                    item->set_text_content(value.toString().toStdString());
+                    CATCH_EMIT
+                    beginRemoveRows(index, 0, item->child_nodes().size() - 1);
+                    endRemoveRows();
+                } else {
+                    TRY_EMIT
+                    item->set_text_content(value.toString().toStdString());
+                    CATCH_EMIT
+                }
+            }
+            emit dataChanged(index, index, QVector<int>() << role);
         return true;
     }
     return false;
@@ -142,32 +159,27 @@ Qt::ItemFlags TreeModel::flags(const QModelIndex &index) const
     return Qt::ItemIsEditable | QAbstractItemModel::flags(index);
 }
 
-bool TreeModel::insertRows(int row, int count, const QModelIndex &parent)
+bool TreeModel::appendChild(const QModelIndex &parent, DOM::Node *node)
 {
-    beginInsertRows(parent, row, row + count - 1);
-    // FIXME: Implement me!
+    auto item = getItem(parent);
+    TRY_EMIT
+    item->append_child(node);
+    CATCH_EMIT
+    beginInsertColumns(parent, item->child_nodes().size() - 2, item->child_nodes().size() - 2);
     endInsertRows();
-}
-
-bool TreeModel::insertColumns(int column, int count, const QModelIndex &parent)
-{
-    beginInsertColumns(parent, column, column + count - 1);
-    // FIXME: Implement me!
-    endInsertColumns();
 }
 
 bool TreeModel::removeRows(int row, int count, const QModelIndex &parent)
 {
     beginRemoveRows(parent, row, row + count - 1);
-    // FIXME: Implement me!
+    auto parentItem = getItem(parent);
+    for (int i = row + count - 1; i >= row; i--) {
+        TRY_EMIT
+        parentItem->remove_child(parentItem->child_at(i));
+        CATCH_EMIT
+    }
     endRemoveRows();
-}
-
-bool TreeModel::removeColumns(int column, int count, const QModelIndex &parent)
-{
-    beginRemoveColumns(parent, column, column + count - 1);
-    // FIXME: Implement me!
-    endRemoveColumns();
+    return true;
 }
 
 DOM::Document *TreeModel::getDocument()

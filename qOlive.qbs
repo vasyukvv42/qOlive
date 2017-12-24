@@ -25,6 +25,9 @@ Project {
         files: [
             "GUI/BasicXMLSyntaxHighlighter.cpp",
             "GUI/BasicXMLSyntaxHighlighter.h",
+            "GUI/appendchilddialog.cpp",
+            "GUI/appendchilddialog.h",
+            "GUI/appendchilddialog.ui",
             "GUI/mainwindow.cpp",
             "GUI/mainwindow.h",
             "GUI/mainwindow.ui",

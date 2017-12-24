@@ -12,6 +12,7 @@
 #include <functional>
 #include <sstream>
 #include "Errors.hpp"
+#include "Lexer.hpp"
 
 namespace XML::DOM
 {

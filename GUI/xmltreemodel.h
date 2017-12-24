@@ -15,7 +15,9 @@ class TreeModel : public QAbstractItemModel
     Q_OBJECT
 
 public:
-    explicit TreeModel(DOM::Document* data, QObject *parent = nullptr);
+    explicit TreeModel(DOM::Document &data, QObject *parent = nullptr);
+
+    void setDocument(DOM::Document &data);
 
     DOM::Node* getItem(const QModelIndex &index) const;
 
@@ -41,14 +43,14 @@ public:
     Qt::ItemFlags flags(const QModelIndex& index) const override;
 
     // Add data:
-    bool insertRows(int row, int count, const QModelIndex &parent = QModelIndex()) override;
-    bool insertColumns(int column, int count, const QModelIndex &parent = QModelIndex()) override;
+    bool appendChild(const QModelIndex &parent, DOM::Node *node);
 
     // Remove data:
     bool removeRows(int row, int count, const QModelIndex &parent = QModelIndex()) override;
-    bool removeColumns(int column, int count, const QModelIndex &parent = QModelIndex()) override;
 
     DOM::Document* getDocument();
+signals:
+    void errorOccurred(const QString &title, const QString &info);
 private:
 
     std::unique_ptr<DOM::Document> document;

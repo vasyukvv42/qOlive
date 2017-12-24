@@ -239,6 +239,9 @@ Node::Node(Node&& other) noexcept : type_(other.type_), name_(std::move(other.na
                                     parent_node_(other.parent_node_), previous_sibling_(other.previous_sibling_),
                                     next_sibling_(other.next_sibling_)
 {
+    for (auto&& node : child_nodes_)
+        node->parent_node_ = this;
+
     other.type_ = Type::INVALID_NODE;
     other.parent_node_ = nullptr;
     other.previous_sibling_ = nullptr;
@@ -305,11 +308,15 @@ Node *Node::next_sibling() const
 
 void Node::set_name(const std::string &name)
 {
+    Lexer::validate_name(name);
     Node::name_ = name;
 }
 
 void Node::set_value(const std::string &value)
 {
+    for (auto &&ch : value)
+        if (ch == '>' or ch == '<')
+            throw SyntaxError("Unexpected symbol in node value");
     Node::value_ = value;
 }
 
@@ -321,10 +328,16 @@ std::string Element::serialize(size_t tab_size, size_t level)
     for (auto &kv : attributes)
         out += ' ' + kv.first + "=\"" + kv.second + '"';
     if (has_child_nodes()) {
-        out += ">\n";
-        for (auto &node : child_nodes_)
-            out += node->serialize(tab_size, level + 1);
-        out += tab + "</" + name_ + ">\n";
+        out += '>';
+        if (child_nodes_.size() == 1 and child_nodes_.front()->type() == Type::TEXT_NODE) {
+            out += text_content();
+            out += "</" + name_ + ">\n";
+        } else {
+            out += '\n';
+            for (auto &node : child_nodes_)
+                out += node->serialize(tab_size, level + 1);
+            out += tab + "</" + name_ + ">\n";
+        }
     } else {
         out += "/>\n";
     }
@@ -334,16 +347,22 @@ std::string Element::serialize(size_t tab_size, size_t level)
 std::string Element::text_content()
 {
     std::string buffer;
-    for (auto&& node : *this)
-        if (node->type() == Type::TEXT_NODE)
-            buffer += node->value() + " ";
+    if (child_nodes_.size() == 1 and child_nodes_.front()->type() == Type::TEXT_NODE) {
+        buffer = child_nodes_.front()->value();
+    } else {
+        for (auto&& node : *this)
+            if (node->type() == Type::TEXT_NODE)
+                buffer += node->value() + " ";
+    }
     return buffer;
 }
 
 void Element::set_text_content(const std::string &text)
 {
+    auto text_node = new Text;
+    text_node->set_text_content(text);
     child_nodes_.clear();
-    append_child(new Text(text));
+    append_child(text_node);
 }
 
 Element::Element(Element &&other) noexcept : attributes(std::move(other.attributes)), Node(std::move(other)) {}
