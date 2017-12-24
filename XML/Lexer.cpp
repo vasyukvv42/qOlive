@@ -40,6 +40,9 @@ bool Lexer::eof()
 
 void Lexer::validate_name(const std::string &name)
 {
+    if (name.empty())
+        throw SyntaxError("Empty tag name");
+
     Lexer l(name);
     l.advance();
     auto &ch = l.ch;
@@ -279,7 +282,7 @@ Token Lexer::comment_mode()
 std::string Lexer::read_name()
 {
     std::string name;
-    while (!eof() and is_letter(ch)) {
+    while (!eof() and (is_letter(ch) or ch == ':' or is_digit(ch))) {
         name.push_back(ch);
         advance();
     }
@@ -288,7 +291,7 @@ std::string Lexer::read_name()
 
 bool Lexer::is_letter(char c)
 {
-    return ('a' <= c and c <= 'z') or ('A' <= c and c <= 'Z');
+    return ('a' <= c and c <= 'z') or ('A' <= c and c <= 'Z') or ch == '_';
 }
 
 bool Lexer::is_digit(char c)

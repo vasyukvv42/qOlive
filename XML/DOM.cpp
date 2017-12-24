@@ -136,7 +136,7 @@ void Node::remove_child(Node *old_child)
 }
 
 Element::Element(const std::string &tag_name) : Node(Type::ELEMENT_NODE, tag_name, "") {}
-Text::Text(const std::string &text) : Node(Type::TEXT_NODE, "", text) {}
+Text::Text(const std::string &text) : Node(Type::TEXT_NODE, "", text) { set_text_content(text); }
 
 void Text::append_child(Node *new_child)
 {
@@ -150,7 +150,15 @@ void CDATASection::append_child(Node *new_child)
     throw DOMError("CDATASection node cannot have child nodes");
 }
 
-Comment::Comment(const std::string &text) : Node(Type::COMMENT_NODE, "", text) {}
+Comment::Comment(const std::string &text) : Node(Type::COMMENT_NODE, "", text) { set_text_content(text); }
+
+void Comment::set_text_content(const std::string &text)
+{
+    if (text.find("--") != std::string::npos)
+        throw SyntaxError("Double hyphen in comments is forbidden");
+
+    value_ = text;
+}
 
 void Comment::append_child(Node *new_child)
 {
@@ -182,25 +190,34 @@ void Document::append_child(Node *new_child)
 
 void Element::set_attribute(const std::string &name, const std::string &value)
 {
-    attributes[name] = value;
+    Lexer::validate_name(name);
+    for (auto &&ch : value)
+        if (ch == '"')
+            throw SyntaxError("Attribute value cannot have quotation marks");
+    attributes_[name] = value;
 }
 
 bool Element::has_attribute(const std::string &name)
 {
-    return attributes.find(name) != attributes.end();
+    return attributes_.find(name) != attributes_.end();
 }
 
 std::string Element::attribute(const std::string &name)
 {
     if (has_attribute(name))
-        return attributes[name];
+        return attributes_[name];
     else
         return std::string();
 }
 
+std::map<std::string, std::string> &Element::attributes()
+{
+    return attributes_;
+}
+
 void Element::remove_attribute(const std::string &name)
 {
-    attributes.erase(name);
+    attributes_.erase(name);
 }
 
 std::string Node::serialize(size_t tab_size, size_t level)
@@ -325,7 +342,7 @@ std::string Element::serialize(size_t tab_size, size_t level)
     std::string out;
     std::string tab(tab_size * level, ' ');
     out += tab + '<' + name_;
-    for (auto &kv : attributes)
+    for (auto &kv : attributes_)
         out += ' ' + kv.first + "=\"" + kv.second + '"';
     if (has_child_nodes()) {
         out += '>';
@@ -365,12 +382,12 @@ void Element::set_text_content(const std::string &text)
     append_child(text_node);
 }
 
-Element::Element(Element &&other) noexcept : attributes(std::move(other.attributes)), Node(std::move(other)) {}
+Element::Element(Element &&other) noexcept : attributes_(std::move(other.attributes_)), Node(std::move(other)) {}
 
 Element &Element::operator=(Element &&other) noexcept
 {
     Node::operator=(std::move(other));
-    attributes = std::move(other.attributes);
+    attributes_ = std::move(other.attributes_);
     return *this;
 }
 

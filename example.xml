@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Written by QtCreator 4.5.0, 2017-12-24T02:21:38. -->
+<qtcreator>
+  <data>
+    <variable>EnvironmentId</variable>
+    <value type="QByteArray">{460b1db9-e67a-44d3-b359-3a08a6582317}</value>
+  </data>
+  <data>
+    <variable>ProjectExplorer.Project.ActiveTarget</variable>
+    <value type="int">0</value>
+  </data>
+  <data>
+    <variable>ProjectExplorer.Project.EditorSettings</variable>
+    <valuemap type="QVariantMap">
+      <value key="EditorConfiguration.AutoIndent" type="bool">true</value>
+      <value key="EditorConfiguration.AutoSpacesForTabs" type="bool">false</value>
+      <value key="EditorConfiguration.CamelCaseNavigation" type="bool">true</value>
+      <valuemap key="EditorConfiguration.CodeStyle.0" type="QVariantMap">
+        <value key="language" type="QString">Cpp</value>
+        <valuemap key="value" type="QVariantMap">
+          <value key="CurrentPreferences" type="QByteArray">CppGlobal</value>
+        </valuemap>
+      </valuemap>
+      <valuemap key="EditorConfiguration.CodeStyle.1" type="QVariantMap">
+        <value key="language" type="QString">QmlJS</value>
+        <valuemap key="value" type="QVariantMap">
+          <value key="CurrentPreferences" type="QByteArray">QmlJSGlobal</value>
+        </valuemap>
+      </valuemap>
+      <value key="EditorConfiguration.CodeStyle.Count" type="int">2</value>
+      <value key="EditorConfiguration.Codec" type="QByteArray">UTF-8</value>
+      <value key="EditorConfiguration.ConstrainTooltips" type="bool">false</value>
+      <value key="EditorConfiguration.IndentSize" type="int">4</value>
+      <value key="EditorConfiguration.KeyboardTooltips" type="bool">false</value>
+      <value key="EditorConfiguration.MarginColumn" type="int">80</value>
+      <value key="EditorConfiguration.MouseHiding" type="bool">true</value>
+      <value key="EditorConfiguration.MouseNavigation" type="bool">true</value>
+      <value key="EditorConfiguration.PaddingMode" type="int">1</value>
+      <value key="EditorConfiguration.ScrollWheelZooming" type="bool">true</value>
+      <value key="EditorConfiguration.ShowMargin" type="bool">false</value>
+      <value key="EditorConfiguration.SmartBackspaceBehavior" type="int">0</value>
+      <value key="EditorConfiguration.SmartSelectionChanging" type="bool">true</value>
+      <value key="EditorConfiguration.SpacesForTabs" type="bool">true</value>
+      <value key="EditorConfiguration.TabKeyBehavior" type="int">0</value>
+      <value key="EditorConfiguration.TabSize" type="int">8</value>
+      <value key="EditorConfiguration.UseGlobal" type="bool">true</value>
+      <value key="EditorConfiguration.Utf8BomBehavior" type="int">1</value>
+      <value key="EditorConfiguration.addFinalNewLine" type="bool">true</value>
+      <value key="EditorConfiguration.cleanIndentation" type="bool">true</value>
+      <value key="EditorConfiguration.cleanWhitespace" type="bool">true</value>
+      <value key="EditorConfiguration.inEntireDocument" type="bool">false</value>
+    </valuemap>
+  </data>
+  <data>
+    <variable>ProjectExplorer.Project.PluginSettings</variable>
+    <valuemap type="QVariantMap"/>
+  </data>
+  <data>
+    <variable>ProjectExplorer.Project.Target.0</variable>
+    <valuemap type="QVariantMap">
+      <value key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName" type="QString">Desktop</value>
+      <value key="ProjectExplorer.ProjectConfiguration.DisplayName" type="QString">Desktop</value>
+      <value key="ProjectExplorer.ProjectConfiguration.Id" type="QString">{07800d16-3f3c-47b8-8380-8751d14528df}</value>
+      <value key="ProjectExplorer.Target.ActiveBuildConfiguration" type="int">0</value>
+      <value key="ProjectExplorer.Target.ActiveDeployConfiguration" type="int">0</value>
+      <value key="ProjectExplorer.Target.ActiveRunConfiguration" type="int">0</value>
+      <valuemap key="ProjectExplorer.Target.BuildConfiguration.0" type="QVariantMap">
+        <value key="ProjectExplorer.BuildConfiguration.BuildDirectory" type="QString">/mnt/shared/Projects/build-qOlive-Desktop-Debug</value>
+        <valuemap key="ProjectExplorer.BuildConfiguration.BuildStepList.0" type="QVariantMap">
+          <valuemap key="ProjectExplorer.BuildStepList.Step.0" type="QVariantMap">
+            <value key="ProjectExplorer.BuildStep.Enabled" type="bool">true</value>
+            <value key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName" type="QString"/>
+            <value key="ProjectExplorer.ProjectConfiguration.DisplayName" type="QString">Qbs Build</value>
+            <value key="ProjectExplorer.ProjectConfiguration.Id" type="QString">Qbs.BuildStep</value>
+            <value key="Qbs.CleanInstallRoot" type="bool">false</value>
+            <valuemap key="Qbs.Configuration" type="QVariantMap">
+              <value key="qbs.defaultBuildVariant" type="QString">debug</value>
+              <value key="qbs.profile" type="QString">qtc_Desktop_8dca7736</value>
+              <value key="qbspm.forceProbes" type="bool">false</value>
+            </valuemap>
+            <value key="Qbs.DryKeepGoing" type="bool">false</value>
+            <value key="Qbs.DryRun" type="bool">false</value>
+            <value key="Qbs.Install" type="bool">true</value>
+            <value key="Qbs.MaxJobs" type="int">4</value>
+            <value key="Qbs.ShowCommandLines" type="bool">false</value>
+            <value key="Qbs.forceProbesKey" type="bool">false</value>
+          </valuemap>
+          <value key="ProjectExplorer.BuildStepList.StepsCount" type="int">1</value>
+          <value key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName" type="QString">Build</value>
+          <value key="ProjectExplorer.ProjectConfiguration.DisplayName" type="QString"/>
+          <value key="ProjectExplorer.ProjectConfiguration.Id" type="QString">ProjectExplorer.BuildSteps.Build</value>
+        </valuemap>
+        <valuemap key="ProjectExplorer.BuildConfiguration.BuildStepList.1" type="QVariantMap">
+          <valuemap key="ProjectExplorer.BuildStepList.Step.0" type="QVariantMap">
+            <value key="ProjectExplorer.BuildStep.Enabled" type="bool">true</value>
+            <value key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName" type="QString"/>
+            <value key="ProjectExplorer.ProjectConfiguration.DisplayName" type="QString">Qbs Clean</value>
+            <value key="ProjectExplorer.ProjectConfiguration.Id" type="QString">Qbs.CleanStep</value>
+            <value key="Qbs.DryKeepGoing" type="bool">false</value>
+            <value key="Qbs.DryRun" type="bool">false</value>
+          </valuemap>
+          <value key="ProjectExplorer.BuildStepList.StepsCount" type="int">1</value>
+          <value key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName" type="QString">Clean</value>
+          <value key="ProjectExplorer.ProjectConfiguration.DisplayName" type="QString"/>
+          <value key="ProjectExplorer.ProjectConfiguration.Id" type="QString">ProjectExplorer.BuildSteps.Clean</value>
+        </valuemap>
+        <value key="ProjectExplorer.BuildConfiguration.BuildStepListCount" type="int">2</value>
+        <value key="ProjectExplorer.BuildConfiguration.ClearSystemEnvironment" type="bool">false</value>
+        <valuelist key="ProjectExplorer.BuildConfiguration.UserEnvironmentChanges" type="QVariantList"/>
+        <value key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName" type="QString">Debug</value>
+        <value key="ProjectExplorer.ProjectConfiguration.DisplayName" type="QString"/>
+        <value key="ProjectExplorer.ProjectConfiguration.Id" type="QString">Qbs.QbsBuildConfiguration</value>
+        <value key="Qbs.configName" type="QString">qtc_Desktop_Debug</value>
+      </valuemap>
+      <valuemap key="ProjectExplorer.Target.BuildConfiguration.1" type="QVariantMap">
+        <value key="ProjectExplorer.BuildConfiguration.BuildDirectory" type="QString">/mnt/shared/Projects/build-qOlive-Desktop-Release</value>
+        <valuemap key="ProjectExplorer.BuildConfiguration.BuildStepList.0" type="QVariantMap">
+          <valuemap key="ProjectExplorer.BuildStepList.Step.0" type="QVariantMap">
+            <value key="ProjectExplorer.BuildStep.Enabled" type="bool">true</value>
+            <value key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName" type="QString"/>
+            <value key="ProjectExplorer.ProjectConfiguration.DisplayName" type="QString">Qbs Build</value>
+            <value key="ProjectExplorer.ProjectConfiguration.Id" type="QString">Qbs.BuildStep</value>
+            <value key="Qbs.CleanInstallRoot" type="bool">false</value>
+            <valuemap key="Qbs.Configuration" type="QVariantMap">
+              <value key="qbs.defaultBuildVariant" type="QString">release</value>
+              <value key="qbs.profile" type="QString">qtc_Desktop_8dca7736</value>
+              <value key="qbspm.forceProbes" type="bool">false</value>
+            </valuemap>
+            <value key="Qbs.DryKeepGoing" type="bool">false</value>
+            <value key="Qbs.DryRun" type="bool">false</value>
+            <value key="Qbs.Install" type="bool">true</value>
+            <value key="Qbs.MaxJobs" type="int">4</value>
+            <value key="Qbs.ShowCommandLines" type="bool">false</value>
+            <value key="Qbs.forceProbesKey" type="bool">false</value>
+          </valuemap>
+          <value key="ProjectExplorer.BuildStepList.StepsCount" type="int">1</value>
+          <value key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName" type="QString">Build</value>
+          <value key="ProjectExplorer.ProjectConfiguration.DisplayName" type="QString"/>
+          <value key="ProjectExplorer.ProjectConfiguration.Id" type="QString">ProjectExplorer.BuildSteps.Build</value>
+        </valuemap>
+        <valuemap key="ProjectExplorer.BuildConfiguration.BuildStepList.1" type="QVariantMap">
+          <valuemap key="ProjectExplorer.BuildStepList.Step.0" type="QVariantMap">
+            <value key="ProjectExplorer.BuildStep.Enabled" type="bool">true</value>
+            <value key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName" type="QString"/>
+            <value key="ProjectExplorer.ProjectConfiguration.DisplayName" type="QString">Qbs Clean</value>
+            <value key="ProjectExplorer.ProjectConfiguration.Id" type="QString">Qbs.CleanStep</value>
+            <value key="Qbs.DryKeepGoing" type="bool">false</value>
+            <value key="Qbs.DryRun" type="bool">false</value>
+          </valuemap>
+          <value key="ProjectExplorer.BuildStepList.StepsCount" type="int">1</value>
+          <value key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName" type="QString">Clean</value>
+          <value key="ProjectExplorer.ProjectConfiguration.DisplayName" type="QString"/>
+          <value key="ProjectExplorer.ProjectConfiguration.Id" type="QString">ProjectExplorer.BuildSteps.Clean</value>
+        </valuemap>
+        <value key="ProjectExplorer.BuildConfiguration.BuildStepListCount" type="int">2</value>
+        <value key="ProjectExplorer.BuildConfiguration.ClearSystemEnvironment" type="bool">false</value>
+        <valuelist key="ProjectExplorer.BuildConfiguration.UserEnvironmentChanges" type="QVariantList"/>
+        <value key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName" type="QString">Release</value>
+        <value key="ProjectExplorer.ProjectConfiguration.DisplayName" type="QString"/>
+        <value key="ProjectExplorer.ProjectConfiguration.Id" type="QString">Qbs.QbsBuildConfiguration</value>
+        <value key="Qbs.configName" type="QString">qtc_Desktop_Release</value>
+      </valuemap>
+      <value key="ProjectExplorer.Target.BuildConfigurationCount" type="int">2</value>
+      <valuemap key="ProjectExplorer.Target.DeployConfiguration.0" type="QVariantMap">
+        <valuemap key="ProjectExplorer.BuildConfiguration.BuildStepList.0" type="QVariantMap">
+          <value key="ProjectExplorer.BuildStepList.StepsCount" type="int">0</value>
+          <value key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName" type="QString">Deploy</value>
+          <value key="ProjectExplorer.ProjectConfiguration.DisplayName" type="QString"/>
+          <value key="ProjectExplorer.ProjectConfiguration.Id" type="QString">ProjectExplorer.BuildSteps.Deploy</value>
+        </valuemap>
+        <value key="ProjectExplorer.BuildConfiguration.BuildStepListCount" type="int">1</value>
+        <value key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName" type="QString">Deploy locally</value>
+        <value key="ProjectExplorer.ProjectConfiguration.DisplayName" type="QString">Qbs Install</value>
+        <value key="ProjectExplorer.ProjectConfiguration.Id" type="QString">Qbs.Deploy</value>
+      </valuemap>
+      <value key="ProjectExplorer.Target.DeployConfigurationCount" type="int">1</value>
+      <valuemap key="ProjectExplorer.Target.PluginSettings" type="QVariantMap"/>
+      <valuemap key="ProjectExplorer.Target.RunConfiguration.0" type="QVariantMap">
+        <value key="Analyzer.QmlProfiler.AggregateTraces" type="bool">false</value>
+        <value key="Analyzer.QmlProfiler.FlushEnabled" type="bool">false</value>
+        <value key="Analyzer.QmlProfiler.FlushInterval" type="uint">1000</value>
+        <value key="Analyzer.QmlProfiler.LastTraceFile" type="QString"/>
+        <value key="Analyzer.QmlProfiler.Settings.UseGlobalSettings" type="bool">true</value>
+        <valuelist key="Analyzer.Valgrind.AddedSuppressionFiles" type="QVariantList"/>
+        <value key="Analyzer.Valgrind.Callgrind.CollectBusEvents" type="bool">false</value>
+        <value key="Analyzer.Valgrind.Callgrind.CollectSystime" type="bool">false</value>
+        <value key="Analyzer.Valgrind.Callgrind.EnableBranchSim" type="bool">false</value>
+        <value key="Analyzer.Valgrind.Callgrind.EnableCacheSim" type="bool">false</value>
+        <value key="Analyzer.Valgrind.Callgrind.EnableEventToolTips" type="bool">true</value>
+        <value key="Analyzer.Valgrind.Callgrind.MinimumCostRatio" type="double">0.01</value>
+        <value key="Analyzer.Valgrind.Callgrind.VisualisationMinimumCostRatio" type="double">10</value>
+        <value key="Analyzer.Valgrind.FilterExternalIssues" type="bool">true</value>
+        <value key="Analyzer.Valgrind.LeakCheckOnFinish" type="int">1</value>
+        <value key="Analyzer.Valgrind.NumCallers" type="int">25</value>
+        <valuelist key="Analyzer.Valgrind.RemovedSuppressionFiles" type="QVariantList"/>
+        <value key="Analyzer.Valgrind.SelfModifyingCodeDetection" type="int">1</value>
+        <value key="Analyzer.Valgrind.Settings.UseGlobalSettings" type="bool">true</value>
+        <value key="Analyzer.Valgrind.ShowReachable" type="bool">false</value>
+        <value key="Analyzer.Valgrind.TrackOrigins" type="bool">true</value>
+        <value key="Analyzer.Valgrind.ValgrindExecutable" type="QString">valgrind</value>
+        <valuelist key="Analyzer.Valgrind.VisibleErrorKinds" type="QVariantList">
+          <value type="int">0</value>
+          <value type="int">1</value>
+          <value type="int">2</value>
+          <value type="int">3</value>
+          <value type="int">4</value>
+          <value type="int">5</value>
+          <value type="int">6</value>
+          <value type="int">7</value>
+          <value type="int">8</value>
+          <value type="int">9</value>
+          <value type="int">10</value>
+          <value type="int">11</value>
+          <value type="int">12</value>
+          <value type="int">13</value>
+          <value type="int">14</value>
+        </valuelist>
+        <value key="PE.EnvironmentAspect.Base" type="int">2</value>
+        <valuelist key="PE.EnvironmentAspect.Changes" type="QVariantList"/>
+        <value key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName" type="QString">qOlive</value>
+        <value key="ProjectExplorer.ProjectConfiguration.DisplayName" type="QString"/>
+        <value key="ProjectExplorer.ProjectConfiguration.Id" type="QString">Qbs.RunConfiguration:qOlive.qtc_Desktop_8dca7736---Qbs.RC.NameSeparator---qOlive</value>
+        <value key="Qbs.RunConfiguration.CommandLineArguments" type="QString"/>
+        <value key="Qbs.RunConfiguration.WorkingDirectory" type="QString"/>
+        <value key="Qbs.RunConfiguration.WorkingDirectory.default" type="QString">/mnt/shared/Projects/build-qOlive-Desktop-Debug/qtc_Desktop_Debug/install-root</value>
+        <value key="RunConfiguration.QmlDebugServerPort" type="uint">3768</value>
+        <value key="RunConfiguration.UseCppDebugger" type="bool">false</value>
+        <value key="RunConfiguration.UseCppDebuggerAuto" type="bool">true</value>
+        <value key="RunConfiguration.UseMultiProcess" type="bool">false</value>
+        <value key="RunConfiguration.UseQmlDebugger" type="bool">false</value>
+        <value key="RunConfiguration.UseQmlDebuggerAuto" type="bool">true</value>
+      </valuemap>
+      <value key="ProjectExplorer.Target.RunConfigurationCount" type="int">1</value>
+    </valuemap>
+  </data>
+  <data>
+    <variable>ProjectExplorer.Project.TargetCount</variable>
+    <value type="int">1</value>
+  </data>
+  <data test="asdasd">test</data>
+</qtcreator>

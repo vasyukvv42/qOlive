@@ -17,36 +17,42 @@ AppendChildDialog::~AppendChildDialog()
 
 void AppendChildDialog::on_buttonBox_accepted()
 {
-    XML::DOM::Node *node;
+    XML::DOM::Node *node = nullptr;
     auto textContent = ui->textEdit->toPlainText().toStdString();
     auto nodeName = ui->nameEdit->text().toStdString();
-    switch (ui->comboBox->currentIndex()) {
-    case 0: {
-        if (not textContent.empty())
-            node = new XML::DOM::Text(textContent);
-        break;
-    }
-    case 1: {
-        if (not textContent.empty())
-            node = new XML::DOM::Comment(textContent);
-        break;
-    }
-    case 2: {
-        if (not textContent.empty())
-            node = new XML::DOM::CDATASection(textContent);
-        break;
-    }
-    case 3: {
-        if (not nodeName.empty()) {
-            node = new XML::DOM::Element(nodeName);
+    try {
+        switch (ui->comboBox->currentIndex()) {
+        case 0: {
             if (not textContent.empty())
-                node->set_text_content(textContent);
+                node = new XML::DOM::Text(textContent);
+            break;
         }
-        break;
-    }
-    default: {
-        break;
-    }
+        case 1: {
+            if (not textContent.empty())
+                node = new XML::DOM::Comment(textContent);
+            break;
+        }
+        case 2: {
+            if (not textContent.empty())
+                node = new XML::DOM::CDATASection(textContent);
+            break;
+        }
+        case 3: {
+            if (not nodeName.empty()) {
+                XML::Lexer::validate_name(nodeName);
+                node = new XML::DOM::Element(nodeName);
+                if (not textContent.empty())
+                    node->set_text_content(textContent);
+            }
+            break;
+        }
+        default:
+            break;
+        }
+    } catch (XML::SyntaxError &e) {
+        emit xmlTreeModel->errorOccurred("Syntax Error", e.what());
+    } catch (XML::DOMError &e) {
+        emit xmlTreeModel->errorOccurred("DOM Error", e.what());
     }
     if (node)
         xmlTreeModel->appendChild(index, node);

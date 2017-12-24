@@ -225,6 +225,10 @@ public:
     /// \return Attribute value
     std::string attribute(const std::string &name);
 
+    /// Get ref to attributes map
+    /// \return Ref to attributes map
+    std::map<std::string, std::string> &attributes();
+
     /// Returns concatenation of every text node descendant of this element
     /// \return Text content
     std::string text_content() override;
@@ -244,7 +248,7 @@ public:
     Element &operator=(Element &&other) noexcept;
 
 protected:
-    std::map<std::string, std::string> attributes;
+    std::map<std::string, std::string> attributes_;
 };
 
 class Text : public Node
@@ -303,6 +307,10 @@ public:
     /// Comment constructor
     /// \param text Text content
     explicit Comment(const std::string &text = "");
+
+    /// Set new text content
+    /// \param text New text
+    void set_text_content(const std::string &text) override;
 
     /// Always throws DOMError
     /// \param new_child Text content

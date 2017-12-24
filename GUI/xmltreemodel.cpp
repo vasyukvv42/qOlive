@@ -156,6 +156,11 @@ Qt::ItemFlags TreeModel::flags(const QModelIndex &index) const
     if (index.column() == 1)
         return QAbstractItemModel::flags(index);
 
+    auto item = getItem(index);
+    if (index.column() == 0 and item->type() != DOM::Node::Type::ELEMENT_NODE)
+        return QAbstractItemModel::flags(index);
+
+
     return Qt::ItemIsEditable | QAbstractItemModel::flags(index);
 }
 
@@ -164,9 +169,11 @@ bool TreeModel::appendChild(const QModelIndex &parent, DOM::Node *node)
     auto item = getItem(parent);
     TRY_EMIT
     item->append_child(node);
-    CATCH_EMIT
-    beginInsertColumns(parent, item->child_nodes().size() - 2, item->child_nodes().size() - 2);
+    beginInsertRows(parent, item->child_nodes().size() - 1, item->child_nodes().size() - 1);
     endInsertRows();
+    return true;
+    CATCH_EMIT
+    return false;
 }
 
 bool TreeModel::removeRows(int row, int count, const QModelIndex &parent)
