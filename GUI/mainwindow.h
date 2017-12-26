@@ -9,7 +9,7 @@
 #include "xmltreemodel.h"
 #include "appendchilddialog.h"
 #include "attributeswindow.h"
-#include "../XML/Parser.hpp"
+#include "Parser.hpp"
 
 namespace Ui {
 class MainWindow;

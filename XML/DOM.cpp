@@ -4,7 +4,9 @@
 
 #include "DOM.hpp"
 
-namespace XML::DOM
+namespace XML
+{
+namespace DOM
 {
 
 Node::~Node() = default;
@@ -559,4 +561,5 @@ void Document::insert_before(Node *new_child, Node *ref_child)
     Node::insert_before(new_child, ref_child);
 }
 
+}
 } // namespace XML::DOM

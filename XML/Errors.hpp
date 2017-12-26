@@ -2,8 +2,8 @@
 // Created by cyborg on 12/8/17.
 //
 
-#ifndef FANTASTIC_PARSERS_ERRORS_HPP
-#define FANTASTIC_PARSERS_ERRORS_HPP
+#ifndef XML_ERRORS_HPP
+#define XML_ERRORS_HPP
 
 #include <stdexcept>
 
@@ -35,4 +35,4 @@ public:
 } // namespace XML
 
 
-#endif //FANTASTIC_PARSERS_ERRORS_HPP
+#endif //XML_ERRORS_HPP

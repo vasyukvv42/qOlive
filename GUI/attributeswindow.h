@@ -2,7 +2,7 @@
 #define ATTRIBUTESWINDOW_H
 
 #include <QWidget>
-#include "../XML/DOM.hpp"
+#include "DOM.hpp"
 
 namespace Ui {
 class AttributesWindow;

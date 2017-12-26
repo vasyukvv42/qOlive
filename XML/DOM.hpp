@@ -9,21 +9,24 @@
 #include <list>
 #include <map>
 #include <stack>
-#include <functional>
 #include <sstream>
 #include "Errors.hpp"
 #include "Lexer.hpp"
 
-namespace XML::DOM
+namespace XML
+{
+namespace DOM
 {
 
 class Node
 {
 public:
     virtual ~Node() = 0;
+
     /// Move constructor
     /// \param other Node to move
     Node(Node&& other) noexcept;
+
     /// Move operator=
     /// \param other Node to move
     /// \return Ref to *this
@@ -67,7 +70,7 @@ public:
     /// \return True if this is an ancestor of other node
     bool is_ancestor(Node *other);
 
-    /// Search ancestor elements by tag name
+    /// Search descendant elements by tag name
     /// \param tag_name Tag name (Wildcard "*" to get every single element)
     /// \return List of elements
     std::list<class Element*> get_elements_by_tag_name(const std::string &tag_name);
@@ -375,6 +378,7 @@ protected:
     Element* root_element_;
 };
 
+}
 } // namespace XML::DOM
 
 #endif //XML_DOM_HPP

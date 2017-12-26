@@ -1,7 +1,6 @@
 #include "GUI/mainwindow.h"
 #include <QApplication>
 #include <iostream>
-#include "XML/Parser.hpp"
 
 int main(int argc, char *argv[])
 {

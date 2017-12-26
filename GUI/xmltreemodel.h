@@ -6,7 +6,7 @@
 
 #include <memory>
 
-#include "../XML/DOM.hpp"
+#include "DOM.hpp"
 
 namespace XML {
 

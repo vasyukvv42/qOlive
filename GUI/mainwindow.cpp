@@ -159,4 +159,5 @@ void MainWindow::on_actionNew_File_triggered()
         on_actionSave_As_triggered();
     }
     ui->textEdit->clear();
+    on_parseButton_clicked();
 }
